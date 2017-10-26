@@ -65,7 +65,7 @@ function getWeather(parameters)
 		list.innerHTML = "";
 		current += '<li>Dew Point : '+cs.dewPoint+' &#x2109</li>'+'<li>Humidity : '+cs.humidity+' %</li>'+'<li>Wind Speed : '+cs.windSpeed+' km/h</li>'+'<li>Cloud Cover : '+cs.cloudCover+' %</li>'+'<li>Temperature : '+cs.temperature+' &#8457</li>'+'<li>UV Index : '+cs.uvIndex+'</li>';
 		
-		list.innerHTML = "hello there";
+		list.innerHTML = current;
 		
 		summary.innerHTML = cs.summary;
 
