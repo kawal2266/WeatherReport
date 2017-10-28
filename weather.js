@@ -5,13 +5,25 @@ var endpoint = 'https://api.darksky.net/forecast/';
 var list = document.getElementById('list');
 var summary = document.getElementById('summary');
 
-function initMap() {
-    var uluru = {lat: 28.6139, lng: 77.2090};
+/*function initMap() {
+    //var uluru = {lat: 28.6139, lng: 77.2090};
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 4,
         center: uluru
     });
-    addMarker({coords:uluru});
+    //addMarker({coords:uluru});
+
+    /*map.addListener('click', function(e) {
+        placeMarker(e.latLng, map);
+        parameters = "";
+        parameters = '/'+ e.latLng.lat() + ',' + e.latLng.lng();
+        getWeather(parameters);
+    });
+}*/
+
+function display(map) {
+    //var uluru = {lat: 28.6139, lng: 77.2090};
+    addMarker({lat: 28.6139, lng: 77.2090});
 
     map.addListener('click', function(e) {
         placeMarker(e.latLng, map);
@@ -20,6 +32,9 @@ function initMap() {
         getWeather(parameters);
     });
 }
+
+display(map);
+
 function addMarker(props)
 {
     var marker = new google.maps.Marker({
@@ -38,7 +53,7 @@ function placeMarker(latLng, map) {
         position: latLng,
         map: map
     });
-	
+
     map.panTo(latLng);
     markers[0].setMap(null);
     markers =[];
@@ -57,19 +72,19 @@ function getWeather(parameters)
     }
     AjaxRequest(url, function(d) {
         Data.push(d);
-		currentSummary(Data[0].currently);
+        currentSummary(Data[0].currently);
     });
-	
-	function  currentSummary(cs) {
-		var current  =  "";
-		list.innerHTML = "";
-		current += '<li>Dew Point : '+cs.dewPoint+' &#x2109</li>'+'<li>Humidity : '+cs.humidity+' %</li>'+'<li>Wind Speed : '+cs.windSpeed+' km/h</li>'+'<li>Cloud Cover : '+cs.cloudCover+' %</li>'+'<li>Temperature : '+cs.temperature+' &#8457</li>'+'<li>UV Index : '+cs.uvIndex+'</li>';
-		
-		list.innerHTML = current;
-		
-		summary.innerHTML = cs.summary;
 
-		 if(cs.icon=="clear-day")
+    function  currentSummary(cs) {
+        var current  =  "";
+        list.innerHTML = "";
+        current += '<li>'+'Dew Point : '+cs.dewPoint+'°'+'</li>'+'<li>'+'Humidity : '+cs.humidity+' %'+'</li>'+'<li>'+'Wind Speed : '+cs.windSpeed+' km/h'+'</li>'+'<li>'+'Cloud Cover : '+cs.cloudCover+' %'+'</li>'+'<li>'+'Temperature : '+cs.temperature+'°'+'</li>'+'<li>'+'UV Index : '+cs.uvIndex+'</li>';
+
+        list.innerHTML = current;
+
+        summary.innerHTML = cs.summary;
+
+        if(cs.icon=="clear-day")
         {
             $("#clear-day").attr({width: "62", height: "62"});
             $("#clear-night").attr({width: "0", height: "0"});
@@ -205,14 +220,5 @@ function getWeather(parameters)
             $("#partly-cloudy-night").attr({width: "62", height: "62"});
 
         }
-	}
+    }
 }
-
-
-
-
-
-
-
-
-
